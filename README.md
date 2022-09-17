@@ -9,3 +9,9 @@ We want to create an automated MLOps workflow following all state-of-the-art pra
 We use gitflow workflow for managing git branches. If you're not familliar with gitflow please follow [this](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) tutorial. Additionally, all PRs are checked by a linting workflow using [flake8](https://flake8.pycqa.org/en/latest/) and [black](https://black.readthedocs.io/en/stable/).
 
 <img src="img/gitflow.svg">
+
+### Workflows
+
+Currently used workflows (github actions):
+- `Lint` for code quality checking, automaticallly triggered for PRs
+- `Provisioning` for environment provisioning, automatically triggered for pushes to *main* branch
