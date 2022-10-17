@@ -1,8 +1,17 @@
 ## MLOps on Google Cloud
 
-We want to create an automated MLOps workflow following all state-of-the-art practices and technologies. What's more, get to know with gitflow and using with cloud resources.
+We are to create an automated MLOps workflow following all state-of-the-art practices and technologies. What's more, get to know with gitflow and working with cloud resources.
 
 <img src="img/mlops.png">
+
+#### Tools and technologies:
+
+<a href="https://www.python.org/"><img src="img/icons/python.svg" height=30px>**python**</a> &nbsp;&nbsp;&nbsp;
+<a href="https://cloud.google.com/"><img src="img/icons/gcp.svg" height=30px>**GCP**</a> &nbsp;&nbsp;&nbsp;
+<a href="https://www.kubeflow.org//"><img src="img/icons/kubeflow.svg" height=30px>**kubeflow**</a> &nbsp;&nbsp;&nbsp;
+<a href="https://kubernetes.io/"><img src="img/icons/kubernetes.svg" height=30px>**kubernetes**</a> &nbsp;&nbsp;&nbsp;
+<a href="https://www.docker.com/"><img src="img/icons/docker.svg" height=30px>**docker**</a> &nbsp;&nbsp;&nbsp;
+<a href="https://git-scm.com/"><img src="img/icons/git.svg" height=30px>**git**</a> &nbsp;&nbsp;&nbsp;
 
 ### Branch policies
 
