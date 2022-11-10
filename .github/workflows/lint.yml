@@ -3,10 +3,12 @@ name: Lint
 on:
   push:
     branches:
-      - main
+      - master
+      - develop
   pull_request:
     branches:
-      - main
+      - master
+      - develop
 
 permissions:
   checks: write
@@ -24,7 +26,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v1
         with:
-          python-version: 3.8
+          python-version: 3.9
 
       - name: Install Python dependencies
         run: pip install black flake8
