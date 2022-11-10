@@ -1,15 +1,10 @@
-from pathlib import Path
-import sys
-
-sys.path.append(str(Path(".").resolve()))
-
 import numpy as np
-from xgboost import XGBClassifier
+from xgboost import XGBModel
 from flask import Flask, jsonify, request
 from containerized_ml_models.api import io
 
 MODEL_PATH: str = "containerized_ml_models/api/model.pkl"
-model: XGBClassifier = io.load_model(MODEL_PATH)
+model: XGBModel = io.load_model(MODEL_PATH)
 
 app: Flask = Flask(__name__)
 
