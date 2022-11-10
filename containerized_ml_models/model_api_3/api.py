@@ -18,8 +18,8 @@ def predict():
     request_data = json.loads(request.data)
     prediction_data = np.array(request_data)
 
-    classificator = pickle.load(open("model.pkl", "rb"))
-    result = classificator.predict(prediction_data)
+    model = pickle.load(open("model.pkl", "rb"))
+    result = model.predict(prediction_data)
 
     return jsonify({"Result": result.tolist()})
 
