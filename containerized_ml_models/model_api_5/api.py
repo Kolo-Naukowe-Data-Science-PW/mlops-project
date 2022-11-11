@@ -6,12 +6,12 @@ from flask import Flask, jsonify, request
 app = Flask(__name__)
 
 
-@app.route('/ping', methods=['GET'])
+@app.route("/ping", methods=["GET"])
 def ping():
-    return jsonify({'ping': 'success'})
+    return jsonify({"ping": "success"})
 
 
-@app.route('/predict', methods=['POST'])
+@app.route("/predict", methods=["POST"])
 def predict():
     model = pickle.load(open("model.pkl", "rb"))
     requested_data = np.array(json.loads(request.get_data()))
@@ -20,4 +20,4 @@ def predict():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    app.run(host="0.0.0.0")
