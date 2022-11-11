@@ -13,5 +13,5 @@ ENTRYPOINT [ \
     "-n", "api_env", \
     "flask", "--app", "containerized_ml_models/api/api.py", \
     "run", \
-    "--port", "8080" \
+    "--port", "5000" \
     ]
