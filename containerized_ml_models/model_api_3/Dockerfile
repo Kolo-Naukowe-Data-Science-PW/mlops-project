@@ -1,9 +1,7 @@
 FROM continuumio/anaconda3
 
-COPY model.pkl model.pkl
-COPY  api.py api.py
-COPY requirements.txt requirements.txt
+COPY model.pkl api.py requirements.txt /
 
-RUN conda env create --name virtual-env --file requirements.txt
+RUN conda env create --name ml-env --file requirements.txt
 
-ENTRYPOINT [ "conda", "run", "-n", "virtual-env", "--no-capture-output", "python", "api.py" ]
+ENTRYPOINT [ "conda", "run", "-n", "ml-env", "--no-capture-output", "python", "api.py" ]
