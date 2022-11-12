@@ -1,0 +1,9 @@
+FROM continuumio/anaconda3
+
+COPY api.py .
+COPY model.pkl .
+COPY environment.yml environment.yml
+
+RUN conda env create --name virtual-env --file environment.yml
+
+ENTRYPOINT [ "conda", "run", "-n", "virtual-env", "--no-capture-output", "python", "api.py" ]
