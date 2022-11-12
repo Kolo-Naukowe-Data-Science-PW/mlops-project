@@ -18,7 +18,9 @@ def predict():
     request_data = json.loads(request.data)
     prediction_data = np.array(request_data)
 
-    model = pickle.load(open("model.pkl", "rb"))
+    with open("model.pkl", "rb") as file:
+        model = pickle.load(file)
+
     result = model.predict(prediction_data)
 
     return jsonify({"Result": result.tolist()})
