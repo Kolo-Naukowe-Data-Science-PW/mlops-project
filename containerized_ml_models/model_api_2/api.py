@@ -21,12 +21,12 @@ def predict():
     model = load_pickle()
     data = request.get_data(as_text=True)
 
-    input = literal_eval(input)
-    input = asarray(input)  
+    input = literal_eval(data)
+    input = asarray(input)
     output = model.predict(input)
 
     return jsonify({"Result": f"{output}"})
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8000)
+    app.run()
