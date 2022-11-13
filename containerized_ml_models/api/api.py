@@ -17,4 +17,4 @@ def predict():
     input_data = np.array(content)
     model = Model.get_or_create(MODEL_PATH)
     prediction = model.predict(input_data).tolist()
-    return jsonify({"prediction": prediction})
+    return jsonify({"Result": prediction})
