@@ -1,8 +1,6 @@
 FROM continuumio/anaconda3
 
-COPY api.py .
-COPY model.pkl .
-COPY environment.yml environment.yml
+COPY api.py model.pkl environment.yml /
 
 RUN conda env create --name virtual-env --file environment.yml
 
