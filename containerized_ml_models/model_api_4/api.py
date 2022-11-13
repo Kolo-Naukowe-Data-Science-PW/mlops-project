@@ -5,25 +5,22 @@ import json
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET'])
-def index():
-    return json.dumps({'loaded': 'success'})
 
-
-@app.route('/ping', methods=['GET'])
+@app.route("/ping", methods=["GET"])
 def ping():
-    return json.dumps({'ping': 'success'})
+    return json.dumps({"ping": "success"})
 
-@app.route('/predict', methods=['POST'])
+
+@app.route("/predict", methods=["POST"])
 def predict():
     arr = json.loads(request.get_data())
     return read_model(arr)
 
+
 def read_model(data):
-    model_file = open('model.pkl', 'rb')
-    model = pickle.load(model_file)
+    with open("model.pkl", "rb") as model_file:
+        model = pickle.load(model_file)
     return model.predict(data).tolist()
 
-app.run(host='0.0.0.0')
 
-
+app.run(port=8000, host="0.0.0.0")
