@@ -1,7 +1,6 @@
 from flask import Flask, jsonify, request
 from constants import MODEL_PATH
 import pickle as pkl
-import numpy as np
 import json
 
 app = Flask(__name__)
