@@ -2,7 +2,7 @@ import json
 
 from flask import Flask, jsonify, request
 import numpy as np
-from model import model
+import model_module
 
 
 app = Flask(__name__)
@@ -18,7 +18,7 @@ def predict():
     request_data = json.loads(request.data)
     prediction_data = np.array(request_data)
 
-    result = model.predict(prediction_data)
+    result = model_module.model.predict(prediction_data)
 
     return jsonify({"Result": result.tolist()})
 
