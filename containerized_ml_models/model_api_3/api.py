@@ -1,8 +1,8 @@
 import json
 
 from flask import Flask, jsonify, request
-import pickle
 import numpy as np
+from model import model
 
 
 app = Flask(__name__)
@@ -17,9 +17,6 @@ def ping():
 def predict():
     request_data = json.loads(request.data)
     prediction_data = np.array(request_data)
-
-    with open("model.pkl", "rb") as file:
-        model = pickle.load(file)
 
     result = model.predict(prediction_data)
 
