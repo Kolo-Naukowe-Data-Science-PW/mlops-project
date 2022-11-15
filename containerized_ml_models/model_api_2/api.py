@@ -1,32 +1,36 @@
 from flask import Flask, jsonify, request
-from pickle import load as pkl_load
+import pickle
 from ast import literal_eval
-from numpy import asarray
+import numpy as np
 
 app = Flask(__name__)
 MODEL_NAME = "model.pkl"
+PORT = 5000
+HOSTNAME = "0.0.0.0"
 
 
-def load_pickle(fileName):
-    return pkl_load(open(MODEL_NAME, "rb"))
+def load_pickle() -> object:
+    with open(MODEL_NAME, "rb") as file:
+        obj = pickle.load(file)
+    return obj
 
 
 @app.route("/ping", methods=["GET"])
-def ping():
+def ping() -> any:
     return jsonify({"ping": "success"})
 
 
 @app.route("/predict", methods=["POST"])
-def predict():
+def predict() -> any:
     model = load_pickle()
+
     data = request.get_data(as_text=True)
+    data = literal_eval(data)
+    data = np.asarray(data)
 
-    input = literal_eval(data)
-    input = asarray(input)
-    output = model.predict(input)
-
+    output = model.predict(data)
     return jsonify({"Result": f"{output}"})
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host=HOSTNAME, port=PORT)
