@@ -15,11 +15,6 @@ def ping_success():
 def predict():
     record = request.get_data(as_text=True)
     data = np.array(json.loads(record))
-    if len(data.shape) != 2 or data.shape[1] != 10:
-        raise ValueError(
-            "Illegal Argument of incorrect shape. "
-            "Input should be a list of shape (n,10)."
-        )
     with open("model.pkl", "rb") as model_bin:
         model = pickle.load(model_bin)
         prediction = model.predict(data)
