@@ -1,4 +1,5 @@
-import json, pickle
+import json
+import pickle
 from flask import Flask, request
 
 app = Flask(__name__)
