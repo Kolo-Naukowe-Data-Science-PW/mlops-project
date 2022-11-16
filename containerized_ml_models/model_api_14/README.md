@@ -1,9 +1,9 @@
 # Docker container with ML model
 Docker container with an API that allows you to query the ML model saved in a pickle file.
 
-## Running
-
 <br />
+
+## Running
 
 ### 1. With Docker
 
@@ -28,7 +28,7 @@ On this page you should see
 
 <br />
 
-### 2. Local environment (without docker / for development purpose)
+### 2. With local environment (without docker / for development purpose)
 
 Go to containerized_ml_models/model_api_14 directory **(only if you are in the main project directory)**
 ```
