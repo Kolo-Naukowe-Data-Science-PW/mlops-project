@@ -64,5 +64,9 @@ You need to run api image:
 ```
 docker run -p 5000:5000 <image name (can be found in script)>
 ```
+Test request
+```
+curl -X POST http://127.0.0.1:5000/predict --data '{"Alcohol": 14.23, "Malic.acid": 1.71, "Ash": 2.43, "Acl": 15.6, "Mg": 127, "Phenols": 2.8, "Flavanoids": 3.06, "Nonflavanoid.phenols": 0.28, "Proanth": 2.29, "Color.int": 5.64, "Hue": 1.04, "OD": 3.92, "Proline": 1065}' -H "Content-type: application/json"
+```
 
 **Warning**: As for now deployment as kubernetes service doesn't work.
