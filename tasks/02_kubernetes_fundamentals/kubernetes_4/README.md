@@ -40,3 +40,29 @@ In terminal send query to make a predicton
 ```
 curl -X POST 127.0.0.1:5000/predict -d '{"probabilities": [0.1, 0.5, 0.4]}'
 ```
+
+<br />
+
+## Voting classifier (slave)
+
+In order to build images enclosing slave models you need to:
+1. Be in proper directory
+```
+cd tasks/02_kubernetes_fundamentals/kubernetes_4/slave_api
+```
+2. Add execute permissions to bash script
+```
+chmod +x ./build_images.sh
+```
+3. Run build script
+```
+./build_images.sh
+```
+
+### **Testing**
+You need to run api image:
+```
+docker run -p 5000:5000 <image name (can be found in script)>
+```
+
+**Warning**: As for now deployment as kubernetes service doesn't work.
