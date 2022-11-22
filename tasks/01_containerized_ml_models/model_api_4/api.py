@@ -24,7 +24,7 @@ def read_model(data):
 
 
 def main():
-    app.run(port=8000, host="0.0.0.0")
+    app.run()
 
 
 if __name__ == "__main__":
