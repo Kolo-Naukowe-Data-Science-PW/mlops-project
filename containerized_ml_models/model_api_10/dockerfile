@@ -1,0 +1,4 @@
+FROM continuumio/anaconda3
+COPY . .
+RUN conda env create --name virtual-env --file requirements.txt python=3.9
+ENTRYPOINT [ "conda", "run", "-n", "virtual-env", "--no-capture-output", "python", "api.py", "\n" ]
