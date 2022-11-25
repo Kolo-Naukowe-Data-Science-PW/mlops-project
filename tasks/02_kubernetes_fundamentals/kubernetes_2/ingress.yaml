@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mlops-project
+spec:
+  rules:
+  - host:
+    http:
+      paths:
+      - path: /model-4
+        pathType: Prefix
+        backend:
+          service:
+            name: model-4-services
+            port:
+              number: 6001
+      - path: /model-10
+        pathType: Prefix
+        backend:
+          service:
+            name: model-10-services
+            port:
+              number: 6002
