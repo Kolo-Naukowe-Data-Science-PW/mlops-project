@@ -9,7 +9,7 @@ model = load(open("model.pkl", "rb"))
 
 @app.get("/ping")
 def ping():
-    return {"ping": "success"}
+    return {"ping": "success", "model": "8"}
 
 
 @app.post("/predict")
