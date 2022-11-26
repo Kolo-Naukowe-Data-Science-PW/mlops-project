@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: decision-tree-model-api
+  labels:
+    app: decision-tree-model-api
+spec:
+  clusterIP: 10.96.1.1
+  type: LoadBalancer
+  ports:
+  - port: 5000
+    targetPort: 5000
+  selector:
+    app: decision-tree-model-api
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: logistic-model-api
+  labels:
+    app: logistic-model-api
+spec:
+  clusterIP: 10.96.1.2
+  type: LoadBalancer
+  ports:
+  - port: 5000
+    targetPort: 5000
+  selector:
+    app: logistic-model-api
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rf-model-api
+  labels:
+    app: rf-model-api
+spec:
+  clusterIP: 10.96.1.3
+  type: LoadBalancer
+  ports:
+  - port: 5000
+    targetPort: 5000
+  selector:
+    app: rf-model-api

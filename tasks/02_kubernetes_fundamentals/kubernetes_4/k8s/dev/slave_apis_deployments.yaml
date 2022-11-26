@@ -17,8 +17,7 @@ spec:
     spec:
       containers:
       - name: model-api-decision-tree
-        image: models/model-api-decision-tree
-        imagePullPolicy: Never
+        image: azoz01/mlops-project:model-api-decision-tree
         ports:
         - containerPort: 5000
 
@@ -41,8 +40,7 @@ spec:
     spec:
       containers:
       - name: model-api-logistic
-        image: models/model-api-logistic
-        imagePullPolicy: Never
+        image: azoz01/mlops-project:model-api-logistic
         ports:
         - containerPort: 5000
 
@@ -65,7 +63,6 @@ spec:
     spec:
       containers:
       - name: model-api-rf
-        image: models/model-api-rf
-        imagePullPolicy: Never
+        image: azoz01/mlops-project:model-api-rf
         ports:
         - containerPort: 5000

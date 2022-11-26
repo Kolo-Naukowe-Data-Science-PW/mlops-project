@@ -45,6 +45,17 @@ curl -X POST 127.0.0.1:5000/predict -d '{"probabilities": [0.1, 0.5, 0.4]}'
 
 ## Voting classifier (slave)
 
+### **Specs**
+There are 3 services exposed on port `5000` under static IP addresses:
+1. `decision-tree-model-api` - `10.96.1.1`
+2. `logistic-model-api` - `10.96.1.2`
+3. `rf-model-api` - `10.96.1.3`
+
+Each of service have 2 endpoints:
+1. `/ping` - GET
+2. `/predict` - POST
+
+### **Image build**
 In order to build images enclosing slave models you need to:
 1. Be in proper directory
 ```
@@ -59,6 +70,15 @@ chmod +x ./build_images.sh
 ./build_images.sh
 ```
 
+### ***Running k8s services**
+1. Be in proer directory
+```
+cd tasks/02_kubernetes_fundamentals/kubernetes_4
+```
+2.  Apply changes to kubernetes cluster
+```
+sudo kubectl apply -f k8s/dev/
+```
 ### **Testing**
 You need to run api image:
 ```
