@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ml-ingress
+  namespace: mlops
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/default-backend: ingress-nginx-controller
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: localhost
+    http:
+      paths:
+      - path: /model1(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: ml-model-entrypoint
+            port:
+              name: model1-port
+      - path: /model2(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: model-service
+            port:
+              name: model2-port
