@@ -75,13 +75,23 @@ chmod +x ./build_images.sh
 ```
 cd tasks/02_kubernetes_fundamentals/kubernetes_4
 ```
-2.  Apply changes to kubernetes cluster
+2. Add execute permissions to bash script
+```
+chmod +x slave_api/pull_images_to_minikube.sh
+```
+3. Run pull image script
+```
+slave_api/pull_images_to_minikube.sh
+```
+4.  Apply changes to kubernetes cluster
 ```
 sudo kubectl apply -f k8s/dev/
 ```
+Now you should have running kubernetes services
 ### **Testing**
 You need to connect to minikube cluster using `minikube ssh` and then you can use curl to send requests to particular services.
-Test request
+
+Test request:
 ```
 curl -X POST <IP_ADDRESS>/predict --data '{"Alcohol": 14.23, "Malic.acid": 1.71, "Ash": 2.43, "Acl": 15.6, "Mg": 127, "Phenols": 2.8, "Flavanoids": 3.06, "Nonflavanoid.phenols": 0.28, "Proanth": 2.29, "Color.int": 5.64, "Hue": 1.04, "OD": 3.92, "Proline": 1065}' -H "Content-type: application/json"
 ```
