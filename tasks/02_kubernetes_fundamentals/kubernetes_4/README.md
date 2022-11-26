@@ -70,7 +70,7 @@ chmod +x ./build_images.sh
 ./build_images.sh
 ```
 
-### ***Running k8s services**
+### **Running kubernetes services**
 1. Be in proer directory
 ```
 cd tasks/02_kubernetes_fundamentals/kubernetes_4
