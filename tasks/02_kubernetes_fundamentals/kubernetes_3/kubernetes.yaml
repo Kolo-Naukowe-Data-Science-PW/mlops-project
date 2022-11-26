@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ml-model-deployment
+  labels:
+    app: ml-model
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ml-model
+  template:
+    metadata:
+      labels:
+        app: ml-model
+    spec:
+      containers:
+      - name: ml-model
+        image: mlops
+        ports:
+        - containerPort: 5000
+        imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ml-model-entrypoint
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    app: ml-model
+  ports:
+  - port: 5000
+    targetPort: 5000
+    nodePort: 30001
+# kubectl autoscale ml-model-deployment --min=1 --max=3 --cpu-percent=80
