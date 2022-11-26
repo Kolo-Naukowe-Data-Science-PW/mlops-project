@@ -80,13 +80,8 @@ cd tasks/02_kubernetes_fundamentals/kubernetes_4
 sudo kubectl apply -f k8s/dev/
 ```
 ### **Testing**
-You need to run api image:
-```
-docker run -p 5000:5000 <image name (can be found in script)>
-```
+You need to connect to minikube cluster using `minikube ssh` and then you can use curl to send requests to particular services.
 Test request
 ```
-curl -X POST http://127.0.0.1:5000/predict --data '{"Alcohol": 14.23, "Malic.acid": 1.71, "Ash": 2.43, "Acl": 15.6, "Mg": 127, "Phenols": 2.8, "Flavanoids": 3.06, "Nonflavanoid.phenols": 0.28, "Proanth": 2.29, "Color.int": 5.64, "Hue": 1.04, "OD": 3.92, "Proline": 1065}' -H "Content-type: application/json"
+curl -X POST <IP_ADDRESS>/predict --data '{"Alcohol": 14.23, "Malic.acid": 1.71, "Ash": 2.43, "Acl": 15.6, "Mg": 127, "Phenols": 2.8, "Flavanoids": 3.06, "Nonflavanoid.phenols": 0.28, "Proanth": 2.29, "Color.int": 5.64, "Hue": 1.04, "OD": 3.92, "Proline": 1065}' -H "Content-type: application/json"
 ```
-
-**Warning**: As for now deployment as kubernetes service doesn't work.
