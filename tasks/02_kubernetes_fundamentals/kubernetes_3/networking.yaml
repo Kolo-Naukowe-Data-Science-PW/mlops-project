@@ -16,13 +16,13 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: ml-model-entrypoint
+            name: model-1-service
             port:
-              name: model1-port
+              name: model-1-port
       - path: /model2(/|$)(.*)
         pathType: Prefix
         backend:
           service:
-            name: model-service
+            name: model-2-service
             port:
-              name: model2-port
+              name: model-2-port
