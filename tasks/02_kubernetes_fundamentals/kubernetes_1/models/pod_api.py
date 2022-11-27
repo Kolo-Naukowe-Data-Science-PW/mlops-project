@@ -1,9 +1,8 @@
-# !/usr/bin/env python
-# encoding: utf-8
 import json
 from flask import Flask, request, jsonify
 import numpy as np
 import pickle
+import sys
 
 app = Flask(__name__)
 
@@ -18,7 +17,7 @@ def predict():
     data = json.loads(request.get_data())
     x = np.array(data).reshape(1, -1)
 
-    with open("random_forest_model.pkl", "rb") as model_handle:
+    with open(sys.argv[1] + "/" + sys.argv[1] + ".pkl", "rb") as model_handle:
         model = pickle.load(model_handle)
         try:
             prediction = model.predict(x).tolist()
@@ -29,4 +28,4 @@ def predict():
 
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=5000)
+    app.run(host="0.0.0.0", port=8080)

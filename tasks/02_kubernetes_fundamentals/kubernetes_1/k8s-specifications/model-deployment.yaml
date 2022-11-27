@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: mlops-deployment
+  labels:
+    app: mlops
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mlops
+  template:
+    metadata:
+      labels:
+        app: mlops
+    spec:
+      containers:
+      - name: mlops-rf
+        image: mlops-random_forest:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
