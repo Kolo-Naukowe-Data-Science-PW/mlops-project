@@ -1,37 +1,37 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: model-4-deployment
+  name: model-10-deployment
   labels:
-    api: model-4
+    api: model-10
 spec:
   replicas: 3
   selector:
     matchLabels:
-      api: model-4
+      api: model-10
   template:
     metadata:
       labels:
-        api: model-4
+        api: model-10
     spec:
       containers:
-      - name: model-4-pod
-        image: model-4
+      - name: model-10-pod
+        image: model-10
         imagePullPolicy: Never
         ports:
-          - name: model-4
+          - name: model-10
             containerPort: 8000
             protocol: TCP
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: model-4-service
+  name: model-10-service
 spec:
   selector:
     api: model-10
   ports:
     - protocol: TCP
-      port: 6000
+      port: 6001
       targetPort: 8000
 

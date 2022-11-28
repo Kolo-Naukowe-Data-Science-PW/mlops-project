@@ -1,5 +1,5 @@
-FROM continuumio/anaconda3
+FROM continuumio/miniconda3
 COPY . .
 RUN conda config --add channels conda-forge
 RUN conda env create --name virtual-env --file requirements.txt
-ENTRYPOINT ["conda", "run", "-n", "virtual-env", "--no-capture-output", "flask", "--app", "api", "run", "--host=0.0.0.0", "--port", "5000"]
+ENTRYPOINT ["conda", "run", "-n", "virtual-env", "--no-capture-output", "flask", "--app", "api", "run", "--host=0.0.0.0", "--port", "8000"]

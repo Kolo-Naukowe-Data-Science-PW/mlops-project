@@ -4,20 +4,27 @@ metadata:
   name: mlops-project
 spec:
   rules:
-  - host:
+  - host: mlops.com
     http:
       paths:
       - path: /model-4
-        pathType: Prefix
+        pathType: ImplementationSpecific
         backend:
           service:
-            name: model-4-services
-            port:
-              number: 6001
+            name: model-4-service
+            port: 
+              number: 6000
       - path: /model-10
-        pathType: Prefix
+        pathType: ImplementationSpecific
         backend:
           service:
-            name: model-10-services
-            port:
+            name: model-10-service
+            port: 
+              number: 6001
+      - path: /model-16
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: model-16-service
+            port: 
               number: 6002
