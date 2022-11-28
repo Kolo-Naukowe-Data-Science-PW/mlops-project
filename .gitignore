@@ -132,6 +132,7 @@ dmypy.json
 .pyre/
 
 # macos
+<<<<<<< HEAD
 .DS_Store
 
 # VSCode
@@ -140,3 +141,6 @@ dmypy.json
 # PyCharm
 .idea/
 
+=======
+.DS_store
+>>>>>>> feature/kubernetes_2_2
