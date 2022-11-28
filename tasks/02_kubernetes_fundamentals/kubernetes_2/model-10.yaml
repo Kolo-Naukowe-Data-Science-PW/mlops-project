@@ -5,7 +5,7 @@ metadata:
   labels:
     api: model-10
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       api: model-10
@@ -19,15 +19,19 @@ spec:
         image: model-10
         imagePullPolicy: Never
         ports:
-        - containerPort: 8001
+          - name: model-10
+            containerPort: 8000
+            protocol: TCP
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: model-10-services
+  name: model-10-service
 spec:
   selector:
     api: model-10
   ports:
-  - port: 6002
-    targetPort: 5000
+    - protocol: TCP
+      port: 6001
+      targetPort: 8000
+
