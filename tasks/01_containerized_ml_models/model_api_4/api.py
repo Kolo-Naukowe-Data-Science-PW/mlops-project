@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.route("/ping", methods=["GET"])
 def ping():
-    return json.dumps({"ping": "success", "model": "4"})
+    return json.dumps({"ping": "success"})
 
 
 @app.route("/predict", methods=["POST"])

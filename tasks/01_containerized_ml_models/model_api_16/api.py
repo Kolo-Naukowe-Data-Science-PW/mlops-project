@@ -27,11 +27,7 @@ def check_model():
 
 @app.route("/ping", methods=["GET"])
 def ping():
-<<<<<<< HEAD
     return jsonify({"ping": "Success"})
-=======
-    return jsonify({"ping": "Success", "model": "16"})
->>>>>>> 8895743 (ingress not working + how to set an ingress controller while running kubernetes via docker-desktop not minikube)
 
 
 @app.route("/predict", methods=["POST"])
