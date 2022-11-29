@@ -17,11 +17,18 @@ spec:
           service:
             name: model-4-service
             port:
-              number: 6001
+              number: 6004
       - path: /model-16(/|$)(.*)
         pathType: Prefix
         backend:
           service:
             name: model-16-service
             port:
-              number: 6002
+              number: 6016
+      - path: /model-8(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: model-8-service
+            port:
+              number: 6008

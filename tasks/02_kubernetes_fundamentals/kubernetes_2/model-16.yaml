@@ -32,5 +32,5 @@ spec:
     app: model-16
   ports:
     - protocol: TCP
-      port: 6002
+      port: 6016
       targetPort: 8000
