@@ -2,29 +2,26 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: mlops-project
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/default-backend: ingress-nginx-controller
+    kubernetes.io/ingress.class: nginx
 spec:
   rules:
-  - host: mlops.com
+  - host: localhost
     http:
       paths:
-      - path: /model-4
-        pathType: ImplementationSpecific
+      - path: /model-4(/|$)(.*)
+        pathType: Prefix
         backend:
           service:
             name: model-4-service
-            port: 
-              number: 6000
-      - path: /model-10
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: model-10-service
-            port: 
+            port:
               number: 6001
-      - path: /model-16
-        pathType: ImplementationSpecific
+      - path: /model-16(/|$)(.*)
+        pathType: Prefix
         backend:
           service:
             name: model-16-service
-            port: 
+            port:
               number: 6002
