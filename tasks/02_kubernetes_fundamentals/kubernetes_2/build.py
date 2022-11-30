@@ -1,7 +1,7 @@
 import os
 
 MY_DIR = os.path.abspath(os.curdir)
-IMAGES_DIR = os.path.join(MY_DIR, "..", "..", "01_containerized_ml_models")
+IMAGES_DIR = os.path.join(MY_DIR, "tasks", "01_containerized_ml_models")
 
 
 def main():
@@ -15,7 +15,7 @@ def main():
         if folder.startswith("model_api_"):
             number = os.path.splitext(folder)[0].split("_")[-1]
             # build only images which are needed
-            if number in ["4", "16"]:
+            if number in ["4", "16", "8"]:
                 os.system(
                     f"docker build -t model-{number} \
                     {os.path.join(IMAGES_DIR, folder)}"

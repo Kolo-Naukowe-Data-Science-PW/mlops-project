@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: model-8-deployment
+  labels:
+    app: model-8
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: model-8
+  template:
+    metadata:
+      labels:
+        app: model-8
+    spec:
+      containers:
+      - name: model-8-pod
+        image: model-8
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: model-8-service
+spec:
+  selector:
+    app: model-8
+  ports:
+  - port: 6008
+    targetPort: 8000
