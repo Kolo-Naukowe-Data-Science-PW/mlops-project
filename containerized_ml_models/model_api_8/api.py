@@ -4,7 +4,11 @@ import numpy as np
 from uvicorn import run
 
 app = FastAPI()
-model = load(open("model.pkl", "rb"))
+
+file = open("model.pkl", "rb")
+model = load(file)
+file.close()
+
 
 
 @app.get("/ping")
