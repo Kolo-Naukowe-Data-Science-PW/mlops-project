@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: model-10-deploy
+  labels:
+    app: model-10
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: model-10
+  template:
+    metadata:
+      labels:
+        app: model-10
+    spec:
+      containers:
+      - name: api
+        image: model_api_10
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5000

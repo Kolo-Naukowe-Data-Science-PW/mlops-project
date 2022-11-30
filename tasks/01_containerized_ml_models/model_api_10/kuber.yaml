@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-demo
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      api: web
+  template:
+    metadata:
+      labels:
+        api: web
+    spec:
+      containers:
+      - name: api-site
+        image: model_api_10
+        imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-entrypoint
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    api: web
+  ports:
+  - port: 5000
+    targetPort: 5000
+    nodePort: 30001
