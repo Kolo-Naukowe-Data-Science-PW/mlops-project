@@ -26,4 +26,5 @@ We use gitflow workflow for managing git branches. If you're not familliar with 
 Currently used workflows (github actions):
 
 - `Lint` for code quality checking, automaticallly triggered for PRs
+
 - `Provisioning` for environment provisioning, automatically triggered for pushes to _main_ branch
