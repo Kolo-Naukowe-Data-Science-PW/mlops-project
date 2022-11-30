@@ -10,7 +10,6 @@ model = load(file)
 file.close()
 
 
-
 @app.get("/ping")
 def ping():
     return {"ping": "success", "model": "8"}
