@@ -10,6 +10,7 @@ app = Flask(__name__)
 def ping():
     return json.dumps({"ping": "success", "model": "4"})
 
+
 @app.route("/predict", methods=["POST"])
 def predict():
     arr = json.loads(request.get_data())
