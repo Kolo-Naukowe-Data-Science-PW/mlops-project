@@ -1,8 +1,7 @@
 import os
 
-MY_DIR = os.path.abspath(os.curdir)
-IMAGES_DIR = os.path.join(MY_DIR, "tasks", "01_containerized_ml_models")
-
+MY_DIR = os.path.realpath(os.path.dirname(__file__))
+IMAGES_DIR = os.path.join(MY_DIR, "..", "..", "01_containerized_ml_models")
 
 def main():
     # start cluster (uncomment if not set via docker desktop)
