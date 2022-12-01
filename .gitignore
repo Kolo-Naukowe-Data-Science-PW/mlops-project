@@ -140,7 +140,3 @@ dmypy.json
 
 # PyCharm
 .idea/
-
-=======
-.DS_store
->>>>>>> feature/kubernetes_2_2
