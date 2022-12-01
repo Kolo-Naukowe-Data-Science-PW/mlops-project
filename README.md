@@ -6,12 +6,14 @@ We are to create an automated MLOps workflow following all state-of-the-art prac
 
 #### Tools and technologies:
 
-<a href="https://www.python.org/"><img src="img/icons/python.svg" height=30px>**python**</a> &nbsp;&nbsp;&nbsp;
-<a href="https://cloud.google.com/"><img src="img/icons/gcp.svg" height=30px>**GCP**</a> &nbsp;&nbsp;&nbsp;
-<a href="https://www.kubeflow.org//"><img src="img/icons/kubeflow.svg" height=30px>**kubeflow**</a> &nbsp;&nbsp;&nbsp;
-<a href="https://kubernetes.io/"><img src="img/icons/kubernetes.svg" height=30px>**kubernetes**</a> &nbsp;&nbsp;&nbsp;
-<a href="https://www.docker.com/"><img src="img/icons/docker.svg" height=30px>**docker**</a> &nbsp;&nbsp;&nbsp;
-<a href="https://git-scm.com/"><img src="img/icons/git.svg" height=30px>**git**</a> &nbsp;&nbsp;&nbsp;
+<a href="https://www.python.org/"><img src="img/icons/python.svg" height=30px> **python**</a> &nbsp;&nbsp;&nbsp;
+<a href="https://cloud.google.com/"><img src="img/icons/gcp.svg" height=30px> **GCP**</a> &nbsp;&nbsp;&nbsp;
+<a href="https://www.kubeflow.org//"><img src="img/icons/kubeflow.svg" height=30px> **kubeflow**</a> &nbsp;&nbsp;&nbsp;
+<a href="https://kubernetes.io/"><img src="img/icons/kubernetes.svg" height=30px> **kubernetes**</a> &nbsp;&nbsp;&nbsp;
+<a href="https://www.docker.com/"><img src="img/icons/docker.svg" height=30px> **docker**</a> &nbsp;&nbsp;&nbsp;
+<a href="https://mlflow.org/"><img src="img/icons/mlflow.png" height=25px> **mlflow**</a> &nbsp;&nbsp;&nbsp;
+<a href="https://grafana.com/"><img src="img/icons/grafana.svg" height=30px> **grafana**</a> &nbsp;&nbsp;&nbsp;
+<a href="https://git-scm.com/"><img src="img/icons/git.svg" height=30px> **git**</a> &nbsp;&nbsp;&nbsp;
 
 ### Branch policies
 
@@ -22,5 +24,6 @@ We use gitflow workflow for managing git branches. If you're not familliar with 
 ### Workflows
 
 Currently used workflows (github actions):
+
 - `Lint` for code quality checking, automaticallly triggered for PRs
-- `Provisioning` for environment provisioning, automatically triggered for pushes to *main* branch
+- `Provisioning` for environment provisioning, automatically triggered for pushes to _main_ branch
