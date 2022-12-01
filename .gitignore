@@ -132,7 +132,6 @@ dmypy.json
 .pyre/
 
 # macos
-<<<<<<< HEAD
 .DS_Store
 
 # VSCode
@@ -140,4 +139,3 @@ dmypy.json
 
 # PyCharm
 .idea/
--
