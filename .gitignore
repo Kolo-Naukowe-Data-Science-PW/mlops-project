@@ -132,6 +132,7 @@ dmypy.json
 .pyre/
 
 # macos
+<<<<<<< HEAD
 .DS_Store
 
 # VSCode
