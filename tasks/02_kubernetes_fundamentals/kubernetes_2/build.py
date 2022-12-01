@@ -3,6 +3,7 @@ import os
 MY_DIR = os.path.realpath(os.path.dirname(__file__))
 IMAGES_DIR = os.path.join(MY_DIR, "..", "..", "01_containerized_ml_models")
 
+
 def main():
     # start cluster (uncomment if not set via docker desktop)
     # os.system("minikube start")
