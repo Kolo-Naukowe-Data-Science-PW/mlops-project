@@ -30,5 +30,6 @@ spec:
   selector:
     app: model-10
   ports:
-  - port: 6002
+  - port: 6000
     targetPort: 5000
+  

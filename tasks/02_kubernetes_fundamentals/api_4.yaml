@@ -30,5 +30,6 @@ spec:
   selector:
     app: model-4
   ports:
-  - port: 6001
+  - port: 6000
     targetPort: 8000
+  
