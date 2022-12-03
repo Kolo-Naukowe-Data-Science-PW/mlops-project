@@ -27,7 +27,7 @@ def check_model():
 
 @app.route("/ping", methods=["GET"])
 def ping():
-    return jsonify({"ping": "Success"})
+    return jsonify({"ping": "Success", "model": "16"})
 
 
 @app.route("/predict", methods=["POST"])

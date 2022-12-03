@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: model-16-deployment
+  labels:
+    app: model-16
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: model-16
+  template:
+    metadata:
+      labels:
+        app: model-16
+    spec:
+      containers:
+      - name: model-16-pod
+        image: model-16
+        imagePullPolicy: Never
+        ports:
+          - name: model-16
+            containerPort: 8000
+            protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: model-16-service
+spec:
+  selector:
+    app: model-16
+  ports:
+    - protocol: TCP
+      port: 6016
+      targetPort: 8000
