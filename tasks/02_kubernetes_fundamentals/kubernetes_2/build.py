@@ -11,7 +11,7 @@ def main():
     # os.system("eval $(minikube -p minikube docker-env)")
 
     models = {'4', '8', '16'}
-    
+
     # build docker images
     for model in models:
         os.chdir(os.path.join(IMAGES_DIR, f"model_api_{model}"))
@@ -22,7 +22,6 @@ def main():
     for model in models:
         os.system(f"kubectl apply -f model-{model}.yaml")
     os.system("kubectl apply -f ingress.yaml")
-    
 
 
 if __name__ == "__main__":
