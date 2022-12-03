@@ -10,7 +10,7 @@ def main():
     # os.system("minikube docker-env")
     # os.system("eval $(minikube -p minikube docker-env)")
 
-    models = {'4', '8', '16'}
+    models = {"4", "8", "8"}
 
     # build docker images
     for model in models:
