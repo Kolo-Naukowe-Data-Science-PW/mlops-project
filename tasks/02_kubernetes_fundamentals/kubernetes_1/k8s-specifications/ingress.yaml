@@ -3,23 +3,25 @@ kind: Ingress
 metadata:
   name: model-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/default-backend: ingress-nginx-controller
+    kubernetes.io/ingress.class: nginx
 spec:
   rules:
   - host: localhost
     http:
       paths: 
-      - path: /rf
-        pathType: Prefix
-        backend:
-          service:
-            name: model-other-service
-            port:
-              name: mlops-port
-      - path: /other
+      - path: /rf(|$)(.*)
         pathType: Prefix
         backend:
           service:
             name: model-rf-service
+            port:
+              name: mlops-port
+      - path: /other(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: model-other-service
             port:
               name: mlops-port

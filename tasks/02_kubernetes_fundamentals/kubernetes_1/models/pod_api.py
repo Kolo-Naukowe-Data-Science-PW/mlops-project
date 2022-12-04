@@ -3,6 +3,8 @@ from flask import Flask, request, jsonify
 import numpy as np
 import pickle
 import sys
+from pathlib import Path
+import os
 
 app = Flask(__name__)
 
@@ -15,14 +17,19 @@ def ping():
 @app.route("/predict", methods=["POST"])
 def predict():
     data = json.loads(request.get_data())
-    x = np.array(data).reshape(1, -1)
+    path = Path(__file__).parent.absolute()
+    path = os.path.join(path, sys.argv[1] + ".pkl")
+    prediction = path
 
-    with open(sys.argv[1] + "/" + sys.argv[1] + ".pkl", "rb") as model_handle:
-        model = pickle.load(model_handle)
-        try:
-            prediction = model.predict(x).tolist()
-        except Exception:
-            prediction = "Invalid data"
+    try:
+        with open(path, "rb") as model_handle:
+            model = pickle.load(model_handle)
+            try:
+                prediction = model.predict(data).tolist()
+            except Exception as e:
+                prediction = repr(e)
+    except Exception:
+        prediction = "Cannot open file"
 
     return jsonify({"Prediction": prediction})
 

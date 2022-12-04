@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: mlops-deployment-rf
+  labels:
+    app: model-rf
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: model-rf
+  template:
+    metadata:
+      labels:
+        app: model-rf
+    spec:
+      containers:
+      - name: pod-model-rf
+        image: mlops-random_forest:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: model-rf-service
+spec:
+  selector:
+    app: model-rf
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+      name: mlops-port
