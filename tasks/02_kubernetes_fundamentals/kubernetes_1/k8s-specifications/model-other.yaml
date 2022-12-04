@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: model-other-service
+spec:
+  selector:
+    app: model-other
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+      name: mlops-port
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: mlops-deployment-other
+  labels:
+    app: model-other
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: model-other
+  template:
+    metadata:
+      labels:
+        app: model-other
+    spec:
+      containers:
+      - name: pod-mlops-other
+        image: mlops-other:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
