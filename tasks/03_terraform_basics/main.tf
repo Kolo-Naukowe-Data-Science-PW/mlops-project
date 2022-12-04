@@ -7,24 +7,6 @@ terraform {
     }
 }
 
-variable gcp_zone {
-    type = string
-    description = "Gcp server"
-    default = "europe-central2-a"
-}
-
-variable  gcp_project {
-    type = string
-    description = "Project to use"
-    default = "luminous-byway-370313"
-}
-
-variable gcp_ec2_type {
-    type = string
-    description = "VM type"
-    default = "e2-micro"
-}
-
 provider "google" {
     region = var.gcp_zone
     project = var.gcp_project
@@ -44,7 +26,7 @@ resource "google_compute_instance" "default" {
     initialize_params {
         image = "windows-server-2019-dc-core-for-containers-v20200609"
         labels = {
-        my_label = "test"
+        my_label = "test-1"
             }
         }
     }
