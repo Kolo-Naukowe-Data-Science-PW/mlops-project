@@ -89,7 +89,7 @@ sudo kubectl apply -f k8s/dev/
 ```
 Now you should have running kubernetes services
 ### **Testing**
-You need to connect to minikube cluster using `minikube ssh` and then you can use curl to send requests to particular services.
+You need to connect to minikube cluster using `minikube ssh` and then you can use curl to send requests to particular services or run `minikube tunnel` in order to expose cluster's networking to local machine.
 
 Test request:
 ```
