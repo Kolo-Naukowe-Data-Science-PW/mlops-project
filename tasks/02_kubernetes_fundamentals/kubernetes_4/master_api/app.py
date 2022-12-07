@@ -27,9 +27,7 @@ def predict():
         requests.post(url=url, data=json.dumps(data), headers=headers).json()
         for url in SLAVE_APIS_URLS
     ]
-    results_arrays = list(
-        map(lambda item: item["Result"][0], slave_apis_results)
-    )
+    results_arrays = [item["Result"][0] for item in slave_apis_results]
     aggregated_probas = np.sum(results_arrays, axis=0)
     prediction = np.argmax(aggregated_probas) + 1
     return jsonify({"prediction": [prediction.item()]})
