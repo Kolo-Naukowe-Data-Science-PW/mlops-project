@@ -1,0 +1,22 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: master-api-deployment
+  labels:
+      app: master-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: master-api
+  template:
+    metadata:
+      labels:
+        app: master-api
+    spec:
+      containers:
+      - name: master-api
+        image: azoz01/mlops-project:master-api
+        ports:
+        - containerPort: 5000

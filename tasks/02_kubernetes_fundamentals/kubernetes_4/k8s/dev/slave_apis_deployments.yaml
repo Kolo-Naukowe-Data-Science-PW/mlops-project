@@ -1,0 +1,68 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: decision-tree-model-api-deployment
+  labels:
+      app: decision-tree-model-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: decision-tree-model-api
+  template:
+    metadata:
+      labels:
+        app: decision-tree-model-api
+    spec:
+      containers:
+      - name: model-api-decision-tree
+        image: azoz01/mlops-project:model-api-decision-tree
+        ports:
+        - containerPort: 5000
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: logistic-model-api-deployment
+  labels:
+      app: logistic-model-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: logistic-model-api
+  template:
+    metadata:
+      labels:
+        app: logistic-model-api
+    spec:
+      containers:
+      - name: model-api-logistic
+        image: azoz01/mlops-project:model-api-logistic
+        ports:
+        - containerPort: 5000
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rf-model-api-deployment
+  labels:
+      app: rf-model-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: rf-model-api
+  template:
+    metadata:
+      labels:
+        app: rf-model-api
+    spec:
+      containers:
+      - name: model-api-rf
+        image: azoz01/mlops-project:model-api-rf
+        ports:
+        - containerPort: 5000
