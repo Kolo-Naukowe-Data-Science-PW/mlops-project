@@ -1,0 +1,1 @@
+{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"vm","Source":"../infrastructure/vm","Dir":"../infrastructure/vm"},{"Key":"k8s","Source":"../infrastructure/k8s","Dir":"../infrastructure/k8s"}]}
