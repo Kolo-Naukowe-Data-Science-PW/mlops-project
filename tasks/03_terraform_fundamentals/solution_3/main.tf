@@ -4,20 +4,12 @@ provider "google" {
     region  = "us-west1"
     zone  = "us-west1-c"
 }
-resource "google_compute_instance" "vm_instance" {
-    name = var.vm_name
-    machine_type = var.machine_type
 
-    tags = ["dev"]
+module "compute_engine" {
+    source = "./modules/compute_engine"
+}
 
-    boot_disk {
-      initialize_params {
-        image = var.os_image
-      }
-    }
-    network_interface {
-      network = "default"
-      access_config {
-      }
-    }
+module "k8s_cluster" {
+    source = "./modules/k8s_cluster"
+    service_account = var.service_account
 }
