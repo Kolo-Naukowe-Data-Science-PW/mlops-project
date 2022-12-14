@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
       - name: api
-        image: model_api_4
-        imagePullPolicy: Never
+        image: eu.gcr.io/mlops-370613/model_api_4
+        imagePullPolicy: Always
         ports:
           - containerPort: 8000 
 
@@ -27,6 +27,7 @@ kind: Service
 metadata:
   name: model-4-service
 spec:
+  type: LoadBalancer
   selector:
     app: model-4
   ports:
