@@ -1,4 +1,4 @@
-variable "service_account" {}
+variable "client_email" {}
 
 resource "google_container_cluster" "primary" {
   name     = var.name
@@ -15,9 +15,9 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
 
   node_config {
     preemptible  = true
-    machine_type = "f1-micro"
+    machine_type = "e2-medium"
 
-    service_account = var.service_account
+    service_account = var.client_email
     oauth_scopes    = [
       "https://www.googleapis.com/auth/cloud-platform"
     ]

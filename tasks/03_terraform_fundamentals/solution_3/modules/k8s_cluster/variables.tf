@@ -3,12 +3,12 @@ variable "location" {
   description = "(Optional) Location of the cluster."
 }
 variable "name" {
-  default = "my-gke-cluster"
+  default = "gke-cluster"
   description = "(Optional) Name of the cluster."
   type = string
 }
 variable "name_node_pool" {
-  default = "my-node-pool"
+  default = "node-pool"
   description = "(Optional) Name of the node pool."
   type = string
 } 
