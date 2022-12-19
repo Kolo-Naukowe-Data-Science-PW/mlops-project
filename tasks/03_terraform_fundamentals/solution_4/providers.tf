@@ -4,4 +4,3 @@ provider "google" {
   zone    = "europe-central2-a"
   credentials = file(var.gcp_credentials)
 }
-
