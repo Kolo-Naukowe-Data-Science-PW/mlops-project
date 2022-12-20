@@ -2,7 +2,7 @@ name: Provisioning
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "terraform_basics_2" ]
 
 permissions:
   contents: read
