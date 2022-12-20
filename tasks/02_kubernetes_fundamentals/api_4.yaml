@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: model-4-deploy
+  labels:
+    app: model-4
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: model-4
+  template:
+    metadata:
+      labels:
+        app: model-4
+    spec:
+      containers:
+      - name: api
+        image: eu.gcr.io/mlops-370613/model_api_4
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 8000 
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: model-4-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: model-4
+  ports:
+  - port: 6000
+    targetPort: 8000
+  

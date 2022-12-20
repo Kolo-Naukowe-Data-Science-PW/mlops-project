@@ -10,7 +10,7 @@ with open("model/model.pkl", "rb") as file:
 
 @app.route("/ping", methods=["GET"])
 def ping():
-    return jsonify({"ping": "success"})
+    return jsonify({"ping": "success", "model": "10"})
 
 
 @app.route("/predict", methods=["POST"])
