@@ -23,7 +23,7 @@ We use simplified gitflow workflow for managing git branches. If you're not fami
 
 ### Tasks
 
-1. Containerized ML Model
-2. Kubernetes Fundamentals
-3. Terraform Fundamentals
-4. MLFlow Tracking Fundamentals
+1. [Containerized ML Model](./01_containerized_ml_models/)
+2. [Kubernetes Fundamentals](./02_kubernetes_fundamentals/)
+3. [Terraform Fundamentals](./03_terraform_fundamentals/)
+4. [MLFlow Tracking Fundamentals](./04_mlflow_tracking_fundamentals/)
