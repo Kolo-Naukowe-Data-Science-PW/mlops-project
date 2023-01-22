@@ -32,25 +32,23 @@ Umieście swoje rozwiązanie w folderze `mlops-project/tasks/02_kubernetes_funda
 
 ```
 mlops-project
-├── tasks
-|   ├── 01_containerized_ml_models
-|   |   ├── model_api_1
-|   |   |   ├── Dockerfile
-|   |   |   ├── model.pkl
-|   |   |   ├── requirements.txt
-|   |   |   └── api.py
-│   |   ├── model_api_2
-|   |   ├── model_api_3
-|   |   ├── model_api_4
-|   |   ...
-|   |
-|   ├── 02_kubernetes_fundamentals
-|   |   ├── kubernetes_1
-|   |   ├── kubernetes_2
-|   |   ├── kubernetes_3
-|   |   ├── kubernetes_4
-|   |   └── kubernetes_5
+├── 01_containerized_ml_models
+|   ├── model_api_1
+|   |   ├── Dockerfile
+|   |   ├── model.pkl
+|   |   ├── requirements.txt
+|   |   └── api.py
+|   ├── model_api_2
+|   ├── model_api_3
+|   ├── model_api_4
 |   ...
+|
+├── 02_kubernetes_fundamentals
+|   ├── kubernetes_1
+|   ├── kubernetes_2
+|   ├── kubernetes_3
+|   ├── kubernetes_4
+|   └── kubernetes_5
 ...
 ```
 
