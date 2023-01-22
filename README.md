@@ -1,6 +1,6 @@
-## MLOps on Google Cloud
+## MLOps Project
 
-We are to create an automated MLOps workflow following all state-of-the-art practices and technologies. What's more, get to know with gitflow and working with cloud resources.
+This repository is a place for tasks and solutions created as part of the MLOps project. We aim to develop knowledge of MLOps, solving problems related to the subject using state-of-the-art practices and technologies.
 
 <img src="img/mlops.png">
 
@@ -17,13 +17,6 @@ We are to create an automated MLOps workflow following all state-of-the-art prac
 
 ### Branch policies
 
-We use gitflow workflow for managing git branches. If you're not familliar with gitflow please follow [this](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) tutorial. Additionally, all PRs are checked by a linting workflow using [flake8](https://flake8.pycqa.org/en/latest/) and [black](https://black.readthedocs.io/en/stable/).
+We use simplified gitflow workflow for managing git branches. If you're not familliar with gitflow please follow [this](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) tutorial. Additionally, all PRs are checked by a linting workflow using [flake8](https://flake8.pycqa.org/en/latest/) and [black](https://black.readthedocs.io/en/stable/).
 
 <img src="img/gitflow.svg">
-
-### Workflows
-
-Currently used workflows (github actions):
-
-- `Lint` for code quality checking, automaticallly triggered for PRs
-- `Provisioning` for environment provisioning, automatically triggered for pushes to _main_ branch
