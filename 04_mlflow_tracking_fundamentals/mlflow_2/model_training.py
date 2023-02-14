@@ -3,6 +3,8 @@ import os
 import mlflow
 import seaborn as sns
 import xgboost as xgb
+import numpy as np
+import warnings
 
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.tree import DecisionTreeClassifier
@@ -20,21 +22,20 @@ from sklearn.metrics import (
 )
 from sklearn.preprocessing import OneHotEncoder
 from BasicTree import BasicTree
+from mlflow import MlflowClient
 
-xgb.set_config(verbosity=0)
+warnings.filterwarnings("ignore")
 
-RANDOM = 101
+RANDOM = 102
 TEST_SIZE = 0.3
 
 
-def log_gridsearch_run(gs: GridSearchCV, X: pd.DataFrame, y: pd.Series):
+def log_grid_search(gscv: GridSearchCV, X, y):
     mlflow.sklearn.autolog()
 
-    with mlflow.start_run(
-        run_name="CV_SEARCH",
-    ) as run:
+    with mlflow.start_run(run_name="Grid search run") as run:
         run_id = run.info.run_id
-        gs.fit(X, y)
+        gscv.fit(X, y)
 
     mlflow.sklearn.autolog(disable=True)
     return run_id
@@ -49,11 +50,12 @@ if __name__ == "__main__":
 
     X = df.drop("is_female", axis=1)
     y = df.is_female
+
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=TEST_SIZE, random_state=RANDOM
     )
     X_test, X_valid, y_test, y_valid = train_test_split(
-        X, y, test_size=TEST_SIZE, random_state=RANDOM
+        X_test, y_test, test_size=TEST_SIZE, random_state=RANDOM
     )
 
     encoder = OneHotEncoder(handle_unknown="ignore")
@@ -74,7 +76,7 @@ if __name__ == "__main__":
     parameters = [
         {
             "clf__model": [RandomForestClassifier()],
-            "clf__model__n_estimators": list(range(500, 4001, 5000)),
+            "clf__model__n_estimators": [1000],
             "clf__model__criterion": ["gini", "entropy"],
         },
         {
@@ -90,18 +92,33 @@ if __name__ == "__main__":
         },
     ]
 
-    gscv = GridSearchCV(pipeline, parameters, n_jobs=-1, cv=2, scoring="f1")
-    log_gridsearch_run(gscv, X_train, y_train)
-    preds = gscv.predict(X_test)
+    gscv = GridSearchCV(pipeline, parameters, n_jobs=-1, cv=5, scoring="f1")
+    gscv.fit(X_train, y_train)
+    run_id = log_grid_search(gscv, X_test, y_test)
 
+    clf = gscv.best_estimator_
     best_params = gscv.best_params_
     best_params.pop("clf__model")
+    preds = clf.predict(X_valid)
 
     with mlflow.start_run(run_name="Best model") as run:
+
         mlflow.log_params(best_params)
 
-        mlflow.log_metric("f1_score", f1_score(y_test, preds))
-        mlflow.log_metric("accuracy_score", accuracy_score(y_test, preds))
-        mlflow.log_metric("recall_score", recall_score(y_test, preds))
-        mlflow.log_metric("precision_score", precision_score(y_test, preds))
-        mlflow.log_metric("average_precision_score", roc_auc_score(y_test, preds))
+        mlflow.log_metric("f1_score", f1_score(y_valid, preds))
+        mlflow.log_metric("accuracy_score", accuracy_score(y_valid, preds))
+        mlflow.log_metric("recall_score", recall_score(y_valid, preds))
+        mlflow.log_metric("precision_score", precision_score(y_valid, preds))
+        mlflow.log_metric("average_precision_score", roc_auc_score(y_valid, preds))
+
+        mlflow.sklearn.log_model(clf, type(clf["clf"]).__name__)
+
+        plot = sns.heatmap(
+            np.round(confusion_matrix(y_valid, preds), 5),
+            annot=True,
+            cbar=False,
+        )
+
+        path = "./data/conf_matrix.png"
+        plot.figure.savefig(path)
+        mlflow.log_artifact(path)
