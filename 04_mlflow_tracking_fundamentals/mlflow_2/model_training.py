@@ -2,43 +2,43 @@ import pandas as pd
 import os
 import mlflow
 import seaborn as sns
-import xgboost as xgb
-import numpy as np
 import warnings
 
-from sklearn.model_selection import train_test_split, GridSearchCV
+from hyperopt import hp, Trials, STATUS_OK, fmin, tpe
+from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
-from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
-from sklearn.metrics import (
-    confusion_matrix,
-    accuracy_score,
-    f1_score,
-    roc_auc_score,
-    recall_score,
-    precision_score,
-)
+from sklearn.metrics import confusion_matrix
 from sklearn.preprocessing import OneHotEncoder
-from BasicTree import BasicTree
-from mlflow import MlflowClient
 
 warnings.filterwarnings("ignore")
 
-RANDOM = 102
+RANDOM = 101
 TEST_SIZE = 0.3
+KEY_TO_MODEL = "type"
+FOLDS = 2
 
 
-def log_grid_search(gscv: GridSearchCV, X, y):
+def objective(space: dict) -> dict:
     mlflow.sklearn.autolog()
+    model_class = space[KEY_TO_MODEL]
+    space.pop(KEY_TO_MODEL)
 
-    with mlflow.start_run(run_name="Grid search run") as run:
-        run_id = run.info.run_id
-        gscv.fit(X, y)
+    with mlflow.start_run(nested=True):
+        model = model_class(**space)
 
-    mlflow.sklearn.autolog(disable=True)
-    return run_id
+        scores = cross_val_score(
+            model, X_train, y_train, scoring="f1", cv=FOLDS, n_jobs=-1
+        )
+
+        best_score = max(scores)
+
+        loss = 1 - best_score
+
+    mlflow.sklearn.disable_autologging()
+    return {"loss": loss, "status": STATUS_OK}
 
 
 if __name__ == "__main__":
@@ -61,64 +61,49 @@ if __name__ == "__main__":
     encoder = OneHotEncoder(handle_unknown="ignore")
     cat_cols = X_train.select_dtypes(include="object").columns
 
-    pipeline = Pipeline(
-        [
-            (
-                "column_transformer",
-                ColumnTransformer(
-                    [("onehotencoder", encoder, cat_cols)], remainder="passthrough"
-                ),
-            ),
-            ("clf", BasicTree()),
-        ]
+    col_transformer = ColumnTransformer(
+        [("onehotencoder", encoder, cat_cols)], remainder="passthrough"
     )
 
-    parameters = [
-        {
-            "clf__model": [RandomForestClassifier()],
-            "clf__model__n_estimators": [1000],
-            "clf__model__criterion": ["gini", "entropy"],
-        },
-        {
-            "clf__model": [DecisionTreeClassifier()],
-            "clf__model__criterion": ["gini", "entropy"],
-            "clf__model__min_samples_split": list(range(2, 6)),
-        },
-        {
-            "clf__model": [XGBClassifier()],
-            "clf__model__booster": ["gbtree", "gblinear", "dart"],
-            "clf__model__learning_rate": [0.05, 0.1, 0.025],
-            "clf__model__gamma": [0, 0.01, 0.1],
-        },
-    ]
+    X_train = col_transformer.fit_transform(X_train)
+    X_test = col_transformer.transform(X_test)
 
-    gscv = GridSearchCV(pipeline, parameters, n_jobs=-1, cv=5, scoring="f1")
-    gscv.fit(X_train, y_train)
-    run_id = log_grid_search(gscv, X_test, y_test)
+    space = {}
 
-    clf = gscv.best_estimator_
-    best_params = gscv.best_params_
-    best_params.pop("clf__model")
-    preds = clf.predict(X_valid)
+    space["RandomForestClassifier"] = {
+        "n_estimators": hp.choice("n_estimators", list(range(500, 4001, 500))),
+        "n_jobs": -1,
+        "criterion": hp.choice("criterion", ["gini", "entropy"]),
+    }
+    space["DecisionTreeClassifier"] = {
+        "criterion": hp.choice("criterion", ["gini", "entropy"]),
+        "min_samples_split": hp.choice("min_samples_split", list(range(2, 6))),
+    }
+    space["XGBClassifier"] = {
+        "booster": hp.choice("booster", ["gbtree", "gblinear", "dart"]),
+        "learning_rate": hp.uniform("learning_rate", 0.01, 0.025),
+        "gamma": hp.uniform("gamma", 0.01, 0.1),
+        "n_jobs": -1,
+    }
 
-    with mlflow.start_run(run_name="Best model") as run:
+    mlflow.set_experiment("Hyperopt-optimazation")
 
-        mlflow.log_params(best_params)
+    algo = tpe.suggest
 
-        mlflow.log_metric("f1_score", f1_score(y_valid, preds))
-        mlflow.log_metric("accuracy_score", accuracy_score(y_valid, preds))
-        mlflow.log_metric("recall_score", recall_score(y_valid, preds))
-        mlflow.log_metric("precision_score", precision_score(y_valid, preds))
-        mlflow.log_metric("average_precision_score", roc_auc_score(y_valid, preds))
+    for i, model in enumerate(space.keys()):
+        trials = Trials()
 
-        mlflow.sklearn.log_model(clf, type(clf["clf"]).__name__)
-
-        plot = sns.heatmap(
-            np.round(confusion_matrix(y_valid, preds), 5),
-            annot=True,
-            cbar=False,
-        )
-
-        path = "./data/conf_matrix.png"
-        plot.figure.savefig(path)
-        mlflow.log_artifact(path)
+        with mlflow.start_run(run_name=model) as run:
+            space[model][KEY_TO_MODEL] = globals()[model]
+            best_params = fmin(
+                objective,
+                space[model],
+                algo=algo,
+                trials=trials,
+                max_evals=10,
+                verbose=True,
+            )
+            print(f"{'*'*25}\nDONE {model}\n{'*'*25}")
+            best_params = {k: float(v) for (k, v) in best_params.items()}
+            mlflow.log_dict(best_params, "best_model.json")
+        mlflow.end_run()
