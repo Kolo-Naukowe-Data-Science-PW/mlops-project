@@ -4,7 +4,6 @@ import numpy as np
 
 
 class Model:
-
     __creation_key = object()
     class_instance = None
 
