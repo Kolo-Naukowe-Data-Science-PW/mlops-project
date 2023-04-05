@@ -2,7 +2,9 @@ import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 
 
-def convert_to_categorical(df: pd.DataFrame, columns: list[str]) -> pd.DataFrame:
+def convert_to_categorical(
+    df: pd.DataFrame, columns: list[str]
+) -> pd.DataFrame:
     for column in columns:
         df[column] = df[column].astype("category")
     return df

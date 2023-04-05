@@ -23,9 +23,12 @@ class TestConfig:
 def main() -> None:
     suicides = load_dataset()
     features, labels = suicides["data"], suicides["target"]
-    features_train, features_test, labels_train, labels_test = train_test_split(
-        features, labels, test_size=0.2, random_state=42
-    )
+    (
+        features_train,
+        features_test,
+        labels_train,
+        labels_test,
+    ) = train_test_split(features, labels, test_size=0.2, random_state=42)
 
     test_configs = [
         TestConfig(
@@ -56,7 +59,7 @@ def main() -> None:
             RUN_NAME = f"{test_config.clf.__name__}_{idx}"
             with mlflow.start_run(
                 experiment_id=MLflowConfig.EXPERIMENT_ID, run_name=RUN_NAME
-            ) as run:
+            ) as _:
                 mlflow.log_param(test_config.hyperparam, hyperparam_value)
                 mlflow.log_metric("accuracy", accuracy)
                 mlflow.sklearn.log_model(clf, "classifier")
