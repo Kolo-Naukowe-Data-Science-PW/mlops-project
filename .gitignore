@@ -140,3 +140,5 @@ dmypy.json
 # PyCharm
 .idea/
 
+tasks/04_mlflow_tracking_fundamentals/mlflow_1/mlruns
+tasks/04_mlflow_tracking_fundamentals/mlflow_1/data/master.csv
